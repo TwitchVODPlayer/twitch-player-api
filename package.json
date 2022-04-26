@@ -1,6 +1,6 @@
 {
-  "name": "twitch-player-api",
-  "description": "TwitchPlayer API",
+  "name": "twitch-vod-player-api",
+  "description": "TwitchVODPlayer API",
   "version": "0.1.0",
   "main": "src/server.js",
   "author": "Dastan21",

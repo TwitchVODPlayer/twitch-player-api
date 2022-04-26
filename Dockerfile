@@ -5,3 +5,4 @@ COPY ["package.json", "yarn-lock.json*", "./"]
 RUN npm install --production
 COPY . .
 CMD [ "yarn", "run", "start" ]
+EXPOSE 2011
