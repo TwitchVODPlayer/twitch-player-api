@@ -1,4 +1,4 @@
-import twitch from "m3u8-twitch"
+import twitch from 'm3u8-twitch-vod'
 import error from '../middlewares/error.js'
 const { API_BASE_URL } = process.env
 
