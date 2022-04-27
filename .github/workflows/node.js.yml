@@ -19,3 +19,14 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: yarn --frozen-lockfile
+      
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd ~/twitch-player
+          ./setup.sh
