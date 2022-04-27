@@ -20,16 +20,16 @@ function setRateLimit(options) {
 
 
 export const defaultLimit = setRateLimit({
-    windowMs: 30 * 1000,
-    max: 30
+    windowMs: 60 * 1000,
+    max: 100
 })
 
 export const apiLimit = setRateLimit({
-    windowMs: 50 * 1000,
-    max: 5
+    windowMs: 10 * 1000,
+    max: 50
 })
 
 export const vodLimit = setRateLimit({
-    windowMs: 30 * 1000,
+    windowMs: 10 * 1000,
     max: 100
 })
