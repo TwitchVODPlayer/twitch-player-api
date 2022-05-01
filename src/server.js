@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(helmet())
 app.use(cors({
-    origin: process.env.WEB_BASE_URL,
+    origin: [process.env.WWW_WEB_BASE_URL, process.env.WEB_BASE_URL],
     credentials: true
 }))
 
