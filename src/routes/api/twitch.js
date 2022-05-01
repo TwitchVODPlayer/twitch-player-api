@@ -3,8 +3,9 @@ import { getFollows, getUser, getVideos } from '../../controllers/twitch.js'
 import { setUserId } from '../../middlewares/auth.js'
 const router = Router()
 
-router.get("/me", getUser)
+router.get("/users/:login", getUser)
+router.get("/users", getUser)
 router.get("/follows", setUserId, getFollows)
-router.get("/videos/:user_id", getVideos)
+router.get("/videos/:login", getVideos)
 
 export default router
