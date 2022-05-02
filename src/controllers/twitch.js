@@ -1,5 +1,6 @@
 import error from '../middlewares/error.js'
 const { TWITCH_CLIENT_ID, TWITCH_API_URL } = process.env
+const MAX_PER_REQUEST = 100
 const FOLLOWS_PER_REQUEST = 10
 const VIDEOS_PER_REQUEST = 10
 const VOD_TYPES = ['upload', 'archive']
@@ -34,7 +35,7 @@ export function getFollows(req, res) {
     let query = objectToQuery({
         from_id: req.user.id,
         after: req.query.next,
-        first: FOLLOWS_PER_REQUEST
+        first: Math.min((Number(req.query.first) || FOLLOWS_PER_REQUEST), MAX_PER_REQUEST)
     })
     fetchAPI(`users/follows${query}`, req.user.access_token).then(data => {
         query = objectToQuery(data.data.map(follow => follow.to_id), "id")
@@ -58,7 +59,7 @@ export function getVideos(req, res) {
             sort: req.query.filter,
             type: VOD_TYPES,
             after: req.query.next,
-            first: VIDEOS_PER_REQUEST
+            first: Math.min((Number(req.query.first) || VIDEOS_PER_REQUEST), MAX_PER_REQUEST)
         })
         fetchAPI(`videos${query}`, req.user.access_token).then(data => {
             res.send({
