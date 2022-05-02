@@ -41,7 +41,7 @@ export function getFollows(req, res) {
         const cursor = data.pagination.cursor
         fetchAPI(`users${query}`, req.user.access_token).then(data => {
             res.send({
-                follows: data.data.map(user => formatUser(user)),
+                follows: data.data.map(user => formatUser(user)).sort((a, b) => String(a.login).localeCompare(String(b.login))),
                 next: cursor
             })
         })
