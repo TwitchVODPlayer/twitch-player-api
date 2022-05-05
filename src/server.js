@@ -19,4 +19,4 @@ app.use("/api", apiRouter)
 app.get("*", defaultLimit, (_, res) => res.status(404).send({ error: "Not Found", status: 404, message: "This API does not exist" }))
 
 const port = process.env.PORT || 3000
-app.listen(port, () => console.info(`Listening at http://localhost:${port}`))
+app.listen(port, '127.0.0.1', () => console.info(`Listening at http://localhost:${port}`))
