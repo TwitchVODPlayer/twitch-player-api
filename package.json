@@ -17,7 +17,8 @@
     "express-rate-limit": "^6.3.0",
     "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
-    "m3u8-twitch-vod": "^1.0.0"
+    "m3u8-twitch-vod": "^1.0.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
