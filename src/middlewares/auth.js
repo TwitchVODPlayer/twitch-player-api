@@ -21,5 +21,5 @@ export function setUserId(req, res, next) {
     fetchAPI('users', req.user.access_token).then(data => {
         req.user.id = data.data[0].id
         next()
-    }).catch(err => error(res, err, 401, "Could not get user id"))
+    }).catch(err => error(res, err, 400, "Could not get user id"))
 }

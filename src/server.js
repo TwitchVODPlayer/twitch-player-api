@@ -3,12 +3,14 @@ import cors from 'cors'
 import apiRouter from './routes/api/index.js'
 import authRouter from './routes/auth.js'
 import helmet from 'helmet'
+import morgan from 'morgan'
 import { defaultLimit, apiLimit } from './utils/rate-limit.js'
 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(helmet())
+app.use(morgan('tiny'))
 app.use(cors({
     origin: [process.env.WWW_WEB_BASE_URL, process.env.WEB_BASE_URL],
     credentials: true

@@ -15,8 +15,8 @@ export function getVODTs(req, res) {
     twitch.getAccessToken(req.params.vod).then(access_token => {
         twitch.getTsBuffer(`${req.query.url}${req.params.ts}`, access_token).then(ts => {
             res.contentType("arraybuffer").send(Buffer.from(ts, 'binary'))
-        }).catch(err => error(res, err, 401, "Failed to fetch ts file"))
-    }).catch(err => error(res, err, 400, "VOD not found"))
+        }).catch(err => error(res, err, 400, "Failed to fetch ts file"))
+    }).catch(err => error(res, err, 404, "VOD not found"))
 }
 
 export function getVODM3U8(req, res) {
