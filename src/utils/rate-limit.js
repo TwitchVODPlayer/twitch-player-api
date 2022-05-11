@@ -33,3 +33,8 @@ export const vodLimit = setRateLimit({
     windowMs: 10 * 1000,
     max: 100
 })
+
+export const historyLimit = setRateLimit({
+    windowMs: 10 * 1000,
+    max: 20
+})

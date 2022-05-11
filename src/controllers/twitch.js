@@ -67,7 +67,7 @@ export function getVideos(req, res) {
                 next: data.pagination.cursor
             })
         })
-    }).catch(err => error(res, err, 400, `Failed to get videos of '${req.params.login}'`))
+    }).catch(err => error(res, err, 400, "Failed to get videos"))
 }
 
 function objectToQuery(o = {}, k, root = true) {
