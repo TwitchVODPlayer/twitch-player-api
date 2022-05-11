@@ -1,7 +1,7 @@
 {
   "name": "twitch-vod-player-api",
   "description": "TwitchVODPlayer API",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "main": "src/server.js",
   "author": "Dastan21",
   "license": "MIT",
@@ -18,6 +18,7 @@
     "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
     "m3u8-twitch-vod": "^1.0.0",
+    "mongoose": "^6.3.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
