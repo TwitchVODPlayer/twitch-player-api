@@ -1,14 +1,14 @@
 {
   "name": "twitch-vod-player-api",
   "description": "TwitchVODPlayer API",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "src/server.js",
   "author": "Dastan21",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node -r dotenv/config src/server.js",
-    "dev": "set NODE_ENV=development&& npx nodemon -r dotenv/config src/server.js"
+    "start": "node --experimental-fetch -r dotenv/config src/server.js",
+    "dev": "set NODE_ENV=development&& npx nodemon --experimental-fetch -r dotenv/config src/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
