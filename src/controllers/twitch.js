@@ -3,7 +3,6 @@ const { TWITCH_CLIENT_ID, TWITCH_API_URL } = process.env
 const MAX_PER_REQUEST = 100
 const FOLLOWS_PER_REQUEST = 10
 const VIDEOS_PER_REQUEST = 10
-const VOD_TYPES = ['upload', 'archive']
 
 export async function fetchAPI(path, access_token) {
     return fetch(`${TWITCH_API_URL}/${path}`, {
@@ -57,7 +56,6 @@ export function getVideos(req, res) {
         let query = objectToQuery({
             user_id: data.data[0]?.id,
             sort: req.query.filter,
-            type: VOD_TYPES,
             after: req.query.next,
             first: Math.min((Number(req.query.first) || VIDEOS_PER_REQUEST), MAX_PER_REQUEST)
         })
