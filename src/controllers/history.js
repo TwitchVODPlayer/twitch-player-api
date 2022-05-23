@@ -1,9 +1,12 @@
 import error from '../middlewares/error.js'
 import UserModel from '../models/user.js'
 
-export async function getHistory(req, res) {
+export async function getUserVideos(req, res) {
     UserModel.findOne({ twitch_id: req.user.id }).then(async user => {
-        res.send({ history: user?.history })
+        res.send({
+            history: user?.history,
+            watch_later: user?.watch_later
+        })
     }).catch(err => error(res, err, 400, "Cannot find history"))
 }
 
@@ -24,6 +27,19 @@ export async function setWatchtime(req, res) {
         let vod = user.history.find(v => v.vod_id == req.query.vod)
         if (vod == null) user.history.push({ vod_id: req.query.vod, start: req.query.start })
         else vod.start = Number(req.query.start)
+        await user.save()
+        res.send()
+    }).catch(err => error(res, err, 400, "Cannot update watchtime"))
+}
+
+export async function setWatchLater(req, res) {
+    if (req.query.vod == null || req.query.add == null) return error(res, "Bad Request", 400, "Queries [vod,add] cannot be null")
+    if (isNaN(Number(req.query.vod))) return error(res, "Bad Request", 400, "Query [vod] must be a number")
+    UserModel.findOne({ twitch_id: req.user.id }).then(async user => {
+        if (user == null) throw new Error("User not found")
+        let vod_index = user.watch_later.indexOf(Number(req.query.vod))
+        if (vod_index > -1) user.watch_later.splice(vod_index, 1)
+        if (req.query.add === "true") user.watch_later.push(Number(req.query.vod))
         await user.save()
         res.send()
     }).catch(err => error(res, err, 400, "Cannot update watchtime"))
