@@ -61,7 +61,7 @@ export function getUserVideos(req, res) {
         })
         fetchAPI(`videos${query}`, req.user.access_token).then(data => {
             res.send({
-                videos: data.data.map(video => formatVideo(video)),
+                videos: data.data.map(video => formatVideo(video)).filter(video => video.thumbnail_url),
                 next: data.pagination.cursor
             })
         })
