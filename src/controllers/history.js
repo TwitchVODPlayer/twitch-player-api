@@ -24,9 +24,12 @@ export async function setWatchtime(req, res) {
     if (isNaN(Number(req.query.vod)) || isNaN(Number(req.query.start))) return error(res, "Bad Request", 400, "Queries [vod,start] must be numbers")
     UserModel.findOne({ twitch_id: req.user.id }).then(async user => {
         if (user == null) throw new Error("User not found")
-        let vod = user.history.find(v => v.vod_id == req.query.vod)
-        if (vod == null) user.history.push({ vod_id: req.query.vod, start: req.query.start })
-        else vod.start = Number(req.query.start)
+        let vod_index = user.history.findIndex(v => v.vod_id == req.query.vod)
+        if (vod_index === -1) user.history.push({ vod_id: req.query.vod, start: req.query.start })
+        else {
+            if (isNaN(Number(req.query.start)) || Number(req.query.start) === 0) user.history.splice(vod_index, 1)
+            else user.history[vod_index].start = Number(req.query.start)
+        }
         await user.save()
         res.send()
     }).catch(err => error(res, err, 400, "Cannot update watchtime"))
