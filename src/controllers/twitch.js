@@ -48,12 +48,12 @@ export function getFollows(req, res) {
     }).catch(err => error(res, err, 400, "Failed to get follows"))
 }
 
-export function getVideos(req, res) {
+export function getUserVideos(req, res) {
     let query = objectToQuery({
         login: req.params.login
     })
     fetchAPI(`users${query}`, req.user.access_token).then(data => {
-        let query = objectToQuery({
+        query = objectToQuery({
             user_id: data.data[0]?.id,
             sort: req.query.filter,
             after: req.query.next,
@@ -65,6 +65,13 @@ export function getVideos(req, res) {
                 next: data.pagination.cursor
             })
         })
+    }).catch(err => error(res, err, 400, "Failed to get user videos"))
+}
+
+export function getVideos(req, res) {
+    let query = objectToQuery(req.query.id.split(','), "id")
+    fetchAPI(`videos${query}`, req.user.access_token).then(data => {
+        res.send({ videos: data.data.map(video => formatVideo(video)) })
     }).catch(err => error(res, err, 400, "Failed to get videos"))
 }
 
