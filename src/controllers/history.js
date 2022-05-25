@@ -1,7 +1,7 @@
 import error from '../middlewares/error.js'
 import UserModel from '../models/user.js'
 
-export async function getUserVideos(req, res) {
+export async function getHistory(req, res) {
     UserModel.findOne({ twitch_id: req.user.id }).then(async user => {
         res.send({
             history: user?.history,
