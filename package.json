@@ -1,27 +1,41 @@
 {
   "name": "twitch-vod-player-api",
   "description": "TwitchVODPlayer API",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "main": "src/server.js",
   "author": "Dastan21",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "start": "node --experimental-fetch -r dotenv/config src/server.js",
-    "dev": "set NODE_ENV=development&& npx nodemon --experimental-fetch -r dotenv/config src/server.js"
+    "dev": "node -r dotenv/config build/server.js",
+    "start": "node -r dotenv/config server.js",
+    "lint": "npx ts-standard --verbose",
+    "build": "tsc",
+    "docker": "docker build -t twitchplayerapi ."
+  },
+  "ts-standard": {
+    "ignore": ["build"]
   },
   "dependencies": {
-    "cors": "^2.8.5",
+    "@koa/cors": "^4.0.0",
+    "@koa/router": "^12.0.0",
     "dotenv": "^16.0.0",
-    "express": "^4.17.3",
-    "express-rate-limit": "^6.3.0",
-    "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.4",
+    "koa-body": "^5.0.0",
+    "koa-helmet": "^6.1.0",
+    "koa-morgan": "^1.0.1",
+    "koa-ratelimit": "^5.0.1",
     "m3u8-twitch-vod": "^1.0.0",
-    "mongoose": "^6.3.2",
-    "morgan": "^1.10.0"
+    "mongoose": "^6.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/koa-morgan": "^1.0.5",
+    "@types/koa-ratelimit": "^4.2.4",
+    "@types/koa__cors": "^3.3.0",
+    "@types/koa__router": "^12.0.0",
+    "ts-standard": "^12.0.1",
+    "typescript": "^4.8.4"
   }
 }
