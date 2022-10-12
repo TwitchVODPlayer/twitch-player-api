@@ -22,7 +22,8 @@ export async function tokenRequired (ctx: RouterContext, next: Next): Promise<vo
 export async function setUserId (ctx: RouterContext, next: Next): Promise<void> {
   if (ctx.state.user?.access_token == null) return error(ctx, 'Missing Token', 401, 'Missing access token')
 
-  const data = await fetchAPI('users', ctx.state.user.access_token).catch(err => error(ctx, err, 400, 'Could not get user id'))
-  ctx.state.user.id = data.data[0].id
-  await next()
+  return await fetchAPI('users', ctx.state.user.access_token).then(async data => {
+    ctx.state.user.id = data.data[0].id
+    await next()
+  }).catch(err => error(ctx, err, 400, 'Could not get user id'))
 }

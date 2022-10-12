@@ -9,7 +9,7 @@ services:
     volumes:
       - ./db:/data/db
   twitchplayerapi:
-    image: twitchplayerapi:latest
+    image: dastan21/twitchplayerapi:latest
     restart: unless-stopped
     ports:
       - $PORT:$PORT

@@ -11,7 +11,7 @@
     "start": "node -r dotenv/config build/server.js",
     "lint": "npx ts-standard --verbose | snazzy",
     "build": "yarn lint && tsc",
-    "docker": "docker build -t twitchplayerapi ."
+    "docker": "docker build -t dastan21/twitchplayerapi ."
   },
   "ts-standard": {
     "ignore": [
