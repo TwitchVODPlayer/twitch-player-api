@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./db:/data/db
+  twitchplayerapi:
+    image: twitchplayerapi:latest
+    restart: unless-stopped
+    ports:
+      - $PORT:$PORT
+    env_file:
+      - ./.env
+    depends_on:
+      - mongodb

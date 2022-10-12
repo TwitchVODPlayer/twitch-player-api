@@ -8,14 +8,14 @@ export async function tokenRequired (ctx: RouterContext, next: Next): Promise<vo
   const auth = ctx.headers.authorization?.split(' ')?.[1]
   if (auth == null) return error(ctx, 'Missing Token', 401, 'Missing bearer token')
 
-  const tokens = await new Promise((resolve) => {
+  const tokens = await new Promise((resolve, reject) => {
     jwt.verify(auth, process.env.JWT_KEY ?? 'r4nd0mk3y', {}, (err, tokens) => {
-      if (err != null) return error(ctx, err.message, 401, 'Invalid token')
-      if (tokens == null) return error(ctx, undefined, 401, 'Token is empty or null')
+      if (err != null) return reject(new Error('Invalid token'))
+      if (tokens == null) return reject(new Error('Token is empty or null'))
       resolve(tokens)
     })
-  })
-  ctx.state.user = tokens
+  }).catch(err => error(ctx, err.message, 401, 'Invalid token'))
+  ctx.state.user = tokens ?? {}
   await next()
 }
 

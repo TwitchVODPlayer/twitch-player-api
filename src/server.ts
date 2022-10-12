@@ -17,13 +17,12 @@ app.use(cors({
 }))
 
 // database
-mongoose.connect(process.env.DB_URI ?? '').then(() => {
-  console.log('Connected to MongoDB')
-})
+mongoose.connect(process.env.DB_URI ?? '')
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(console.error)
 
 // default routes
 app.use(async (ctx, next) => {
-  if (ctx.path === '/favicon.ico') return
   await next()
   if (ctx.status === 404) ctx.body = { error: 'Not Found', status: 404, message: 'This API does not exist' }
 })
@@ -34,4 +33,4 @@ app.use(apiRouter.routes()).use(apiRouter.allowedMethods())
 
 // listen
 const port = Number(process.env.PORT ?? 3000)
-app.listen(port, '127.0.0.1', () => console.log(`Listening at http://localhost:${port}`))
+app.listen(port, () => console.log(`Listening at http://localhost:${port}`))
